@@ -1,0 +1,31 @@
+{
+  "validUser": {
+    "username": "nerogh",
+    "password": "nero12"
+  },
+  "invalidUser": {
+    "username": "nonexistent_user",
+    "password": "wrongpass"
+  },
+  "products": {
+    "phone": "Samsung galaxy s6",
+    "laptop": "Sony vaio i5"
+  },
+  "categories": {
+    "phones": {
+      "name": "Phones",
+      "expectedProducts": ["Samsung galaxy s6", "Nokia lumia 1520", "Nexus 6"],
+      "minCount": 1
+    },
+    "laptops": {
+      "name": "Laptops",
+      "expectedProducts": ["Sony vaio i5", "MacBook Pro"],
+      "minCount": 1
+    },
+    "monitors": {
+      "name": "Monitors",
+      "expectedProducts": ["Apple monitor 24", "ASUS Full HD"],
+      "minCount": 1
+    }
+  }
+}
