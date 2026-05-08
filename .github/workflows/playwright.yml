@@ -2,11 +2,11 @@ name: E-Commerce QA Pipeline
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
-    branches: [master]
+    branches: [main]
   schedule:
-    - cron: "0 2 * * *"
+    - cron: "0 20 * * 1,5"
 
 jobs:
   test:
