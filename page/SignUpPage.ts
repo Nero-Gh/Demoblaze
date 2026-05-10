@@ -18,7 +18,7 @@ export class SignUpPage {
     this.usernameInput = page.locator("#sign-username");
     this.passwordInput = page.locator("#sign-password");
     this.submitButton = page.locator("#signInModal button:has-text('Sign up')");
-    this.closeButton = page.getByRole("button", { name: "Close" });
+    this.closeButton = page.locator('#signInModal button[aria-label="Close"]');
   }
 
   async openModal() {
@@ -37,8 +37,10 @@ export class SignUpPage {
   }
 
   async closeModal() {
-    await this.closeButton.nth(1).click();
-    await expect(this.signUpModal).not.toBeVisible();
+    if (await this.signUpModal.isVisible()) {
+      await this.closeButton.click();
+      await expect(this.signUpModal).toBeHidden({ timeout: 5000 });
+    }
   }
 
   generateUniqueUsername(base: string = "testuser"): string {

@@ -33,6 +33,13 @@ export class LoginPage {
     await this.loginButton.click();
     await this.usernameInput.fill(username);
     await this.passwordInput.fill(password);
-    await this.submitButton.click();
+
+    await Promise.all([
+      this.page.waitForResponse(
+        (resp) => resp.url().includes("login") && resp.status() === 200,
+        { timeout: 15000 },
+      ),
+      this.submitButton.click(),
+    ]);
   }
 }

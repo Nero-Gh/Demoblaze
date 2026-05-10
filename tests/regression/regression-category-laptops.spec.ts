@@ -31,7 +31,6 @@ test.describe("@regression Regression Test Suite - Product Category", () => {
 
     await test.step("Verify only laptop products are displayed", async () => {
       const titles = await homePage.getProductTitles();
-
       const hasLaptop = expectedLaptops.some((laptop) =>
         titles.some((t) => t.includes(laptop)),
       );

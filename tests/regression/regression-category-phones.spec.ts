@@ -33,6 +33,7 @@ test.describe("@regression Regression Test Suite - Product Category", () => {
       const hasPhoneProduct = expectedPhones.some((phone) =>
         titles.some((t) => t.includes(phone)),
       );
+      page.waitForTimeout(1000);
       expect(hasPhoneProduct, "Expected at least one known phone product").toBe(
         true,
       );
