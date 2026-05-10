@@ -55,4 +55,4 @@ jobs:
           status: ${{ job.status }}
           channel: "U065GLCD68K"
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
