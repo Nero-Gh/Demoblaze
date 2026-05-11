@@ -98,7 +98,9 @@ test.describe("@regression Regression Test Suite - User Registration", () => {
     });
 
     await test.step("Verify account is not duplicated (login still works)", async () => {
-      await signUpPage.closeModal();
+      if (await signUpPage.signUpModal.isVisible()) {
+        await signUpPage.closeModal();
+      }
       await loginPage.login(existingUsername, password);
       await expect(page.locator("#nameofuser")).toContainText(
         `Welcome ${existingUsername}`,

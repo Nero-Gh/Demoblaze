@@ -29,10 +29,14 @@ test.describe("@regression Regression Test Suite - Product Category", () => {
     });
 
     await test.step("Verify only phone products are displayed", async () => {
+      await expect(page.locator(`#tbodyid .card-title`).first()).not.toBeEmpty({
+        timeout: 8000,
+      });
       const titles = await homePage.getProductTitles();
       const hasPhoneProduct = expectedPhones.some((phone) =>
         titles.some((t) => t.includes(phone)),
       );
+      page.waitForTimeout(1000);
       expect(hasPhoneProduct, "Expected at least one known phone product").toBe(
         true,
       );

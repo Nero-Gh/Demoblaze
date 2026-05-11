@@ -32,7 +32,6 @@ test.describe("@regression Regression Test Suite - Product Category", () => {
 
     await test.step("Verify only monitor products are displayed", async () => {
       const titles = await homePage.getProductTitles();
-
       const hasMonitor = expectedMonitors.some((monitor) =>
         titles.some((t) => t.includes(monitor)),
       );

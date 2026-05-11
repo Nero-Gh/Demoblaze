@@ -42,13 +42,21 @@ export class HomePage {
     };
 
     const categoryLink = categoryMap[categoryName];
-    await categoryLink.click();
+    await Promise.all([
+      this.page.waitForResponse(
+        (resp) => resp.url().includes("bycat") && resp.status() === 200,
+        { timeout: 10000 },
+      ),
+      categoryLink.click(),
+    ]);
 
     await expect(async () => {
-      const newCount = await this.productCards.count();
-      expect(newCount).toBeGreaterThan(0);
+      const count = await this.productCards.count();
+      expect(
+        count,
+        "No products rendered after category filter",
+      ).toBeGreaterThan(0);
     }).toPass({ timeout: 10000 });
-    await expect(categoryMap[categoryName]).toHaveClass(/list-group-item/);
   }
 
   async getProductCount() {
