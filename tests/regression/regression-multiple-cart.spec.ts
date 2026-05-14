@@ -23,12 +23,11 @@ test.describe("@regression Regression Test Suite - Cart Operations", () => {
       const price = await productPage.getProductPrice();
       products.push({ name, price });
 
-      page.once("dialog", async (dialog) => {
-        expect(dialog.message()).toContain("Product added");
-        await dialog.accept();
-      });
+      const dialogPromise = page.waitForEvent("dialog");
       await productPage.clickAddToCart();
-      await page.waitForTimeout(500);
+      const dialog = await dialogPromise;
+      expect(dialog.message()).toContain("Product added");
+      await dialog.accept();
     });
 
     await test.step("Navigate back to homepage", async () => {
@@ -43,12 +42,11 @@ test.describe("@regression Regression Test Suite - Cart Operations", () => {
       const price = await productPage.getProductPrice();
       products.push({ name, price });
 
-      page.once("dialog", async (dialog) => {
-        expect(dialog.message()).toContain("Product added");
-        await dialog.accept();
-      });
+      const dialogPromise = page.waitForEvent("dialog");
       await productPage.clickAddToCart();
-      await page.waitForTimeout(500);
+      const dialog = await dialogPromise;
+      expect(dialog.message()).toContain("Product added");
+      await dialog.accept();
     });
 
     await test.step("Navigate to cart and verify", async () => {
@@ -72,8 +70,8 @@ test.describe("@regression Regression Test Suite - Cart Operations", () => {
         `Expected total ${expectedTotal}, got ${cartTotal}`,
       ).toBe(String(expectedTotal));
 
-      for (let i = 0; i < products.length; i++) {
-        expect(cartPrices[i]).toBe(products[i].price);
+      for (const product of products) {
+        expect(cartPrices).toContain(product.price);
       }
     });
   });

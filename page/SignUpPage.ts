@@ -38,8 +38,13 @@ export class SignUpPage {
 
   async closeModal() {
     if (await this.signUpModal.isVisible()) {
-      await this.closeButton.click();
+      await this.page.keyboard.press("Escape");
       await expect(this.signUpModal).toBeHidden({ timeout: 5000 });
+
+      await this.page.waitForSelector(".modal-backdrop", {
+        state: "detached",
+        timeout: 5000,
+      });
     }
   }
 
