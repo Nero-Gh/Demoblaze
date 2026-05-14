@@ -26,7 +26,6 @@ test.describe("@regression Regression Test Suite - Checkout Process", () => {
         userData.validUser.username,
         userData.validUser.password,
       );
-      page.waitForTimeout(500);
       const welcomeId = page.locator("#nameofuser");
       const welcomeMessage = `Welcome ${userData.validUser.username}`;
 
@@ -44,12 +43,11 @@ test.describe("@regression Regression Test Suite - Checkout Process", () => {
       const productPrice = await productPage.getProductPrice();
       cartTotal = productPrice;
 
-      page.once("dialog", async (dialog) => {
-        expect(dialog.message()).toContain("Product added");
-        await dialog.accept();
-      });
+      const dialogPromise = page.waitForEvent("dialog");
       await productPage.clickAddToCart();
-      await page.waitForTimeout(500);
+      const addDialog = await dialogPromise;
+      expect(addDialog.message()).toContain("Product added");
+      await addDialog.accept();
     });
 
     await test.step("Navigate to Cart page", async () => {
